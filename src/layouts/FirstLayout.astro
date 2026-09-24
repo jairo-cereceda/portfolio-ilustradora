@@ -1,0 +1,143 @@
+---
+import FictionalPopup from '@components/organisms/FictionalPopup/FictionalPopup.astro';
+import '@styles/main.css';
+
+export interface Props {
+  pageTitle: string;
+  pageDescription?: string;
+}
+
+const { pageTitle, pageDescription } = Astro.props;
+
+// const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="/img/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      rel="preload"
+      href="/fonts/m-plus-u/MPLUSU-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/m-plus-u/MPLUSU-SemiBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <title>{pageTitle || 'Ilustradora'}</title>
+    <meta
+      name="description"
+      content={pageDescription ||
+        `Portfolio de Ilustradora, ilustraciones originales, procesos creativos y encargos personalizados.`}
+    />
+    <!-- <link rel="canonical" href="https://www.lawebdelartista.com/pagina-actual"> -->
+
+    <meta
+      property="og:title"
+      content="Ilustradora | Portfolio de Ilustración"
+    />
+    <meta
+      property="og:description"
+      content="Explora el universo visual de Ilustradora. Ilustraciones originales, procesos creativos y encargos personalizados."
+    />
+    <!-- <meta
+      property="og:image"
+      content="https://www.lawebdelartista.com/images/obra-principal.jpg"
+    /> -->
+    <!-- <meta property="og:url" content="https://www.lawebdelartista.com" /> -->
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Ilustradora | Portfolio de Ilustración"
+    />
+    <meta
+      name="twitter:description"
+      content="Portfolio de Ilustradora, ilustraciones originales, procesos creativos y encargos personalizados."
+    />
+  </head>
+  <body>
+    <slot />
+
+    <FictionalPopup />
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const fictionalPopup = document.querySelector(
+          '#fictional-popup'
+        ) as HTMLDialogElement;
+
+        const fictionalPopupOpeners = document.querySelectorAll(
+          '[data-open-fictional-popup]'
+        );
+
+        const fictionalPopupClose = document.querySelector(
+          '#fictional-popup-close'
+        );
+
+        const openDialog = () => {
+          fictionalPopup.showModal();
+          document.body.classList.add('overflow-hidden');
+          fictionalPopup.focus();
+        };
+
+        const closeDialog = () => {
+          document.body.classList.remove('overflow-hidden');
+
+          fictionalPopup.classList.add(
+            'opacity-0',
+            'scale-95',
+            'transition-all',
+            'duration-200'
+          );
+
+          setTimeout(() => {
+            fictionalPopup.close();
+
+            fictionalPopup.classList.remove(
+              'opacity-0',
+              'scale-95',
+              'transition-all',
+              'duration-200'
+            );
+          }, 200);
+        };
+
+        fictionalPopupClose?.addEventListener('click', () => {
+          closeDialog();
+        });
+
+        fictionalPopup.addEventListener('cancel', (e) => {
+          e.preventDefault();
+          closeDialog();
+        });
+
+        fictionalPopup.addEventListener('click', (e: MouseEvent) => {
+          if (!(e.target instanceof HTMLElement)) return;
+
+          if (!e.target.closest('#fictional-popup-content')) {
+            closeDialog();
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeDialog();
+        });
+
+        fictionalPopupOpeners.forEach((btn) => {
+          btn.addEventListener('click', openDialog);
+        });
+      });
+    </script>
+  </body>
+</html>

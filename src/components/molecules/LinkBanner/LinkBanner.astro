@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components';
+export interface linkBannerData {
+  text: string;
+  url: string;
+  icon: string;
+}
+
+export interface Props {
+  data: linkBannerData;
+}
+
+const { data } = Astro.props;
+const { text, icon, url } = data;
+---
+
+<button
+  data-open-fictional-popup
+  class="px-8 cursor-pointer py-5 transition-all duration-200 shadow-primary-light hover:shadow-detail flex gap-2 items-center justify-center rounded-3xl w-full"
+>
+  <Icon name={icon} size="24" />
+  {text}
+</button>

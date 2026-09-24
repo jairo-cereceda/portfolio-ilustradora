@@ -1,0 +1,29 @@
+---
+import type { headerItemData } from '../../atoms/HeaderItem/HeaderItem.astro';
+import HeaderItem from '../../atoms/HeaderItem/HeaderItem.astro';
+
+export interface headerItemListData {
+  items: headerItemData[];
+  submenuId?: string;
+}
+
+export interface Props {
+  data: headerItemListData;
+}
+
+const { data } = Astro.props;
+const { items, submenuId } = data;
+
+const submenuAttrs = submenuId
+  ? {
+      'data-submenu-parent': submenuId,
+      id: submenuId,
+      class:
+        'overflow-hidden submenu-close transition-all duration-300 text-black ease-in-out flex gap-4 flex-col lg:bg-white lg:fixed lg:top-full lg:left-0 lg:bg-white lg:p-4 lg:z-80 lg:min-w-max',
+    }
+  : { class: 'flex gap-4 flex-col lg:flex-row justify-end' };
+---
+
+<ul {...submenuAttrs}>
+  {items && items.map((item) => <HeaderItem data={item} />)}
+</ul>

@@ -1,0 +1,44 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<dialog
+  id="fictional-popup"
+  class="z-100 p-5 m-0 w-full h-full max-w-none outline-none max-h-none bg-black/20 text-black open:flex flex-col overflow-hidden justify-between gap-5 open:animate-fade-in backdrop:bg-transparent"
+>
+  <div class="flex justify-center items-center w-full h-full">
+    <div
+      class="bg-white text-center flex flex-col gap-2 pt-8 p-2 relative"
+      id="fictional-popup-content"
+    >
+      <button
+        id="fictional-popup-close"
+        class="absolute top-2 right-2 cursor-pointer"
+        aria-label="Cerrar popup"
+        ><Icon name="close" class="text-black" size="32" />
+      </button>
+      <h2 class="text-lg font-semibold">
+        <span class="text-red-600">¡Atención!</span> La web que está visualizando
+        es una DEMO
+      </h2>
+      <p>
+        El contenido mostrado en esta página es ficticio y no se corresponde con
+        ningún negocio, establecimiento o ubicación real.
+      </p>
+      <p>
+        Esta web no recopila datos personales de los visitantes ni utiliza
+        tecnologías de seguimiento o cookies no necesarias.
+      </p>
+      <p>
+        Su finalidad es exclusivamente demostrativa y tiene como objetivo
+        aportar contenido al portfolio de Jairo Cereceda Berciano.
+      </p>
+      <p>¿Interesado?</p>
+      <a
+        href="https://jairo-cereceda.github.io/"
+        class="p-2 bg-brand text-white font-semibold rounded-t-2xl transition-colors duration-150 hover:bg-light-detail active:bg-light-detail"
+        >Visita mi portfolio</a
+      >
+    </div>
+  </div>
+</dialog>

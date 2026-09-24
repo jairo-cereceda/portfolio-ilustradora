@@ -1,0 +1,22 @@
+---
+import LinkCard, {
+  type linkCardData,
+} from '@components/molecules/LinkCard/LinkCard.astro';
+
+export interface linkBoxData {
+  cards: linkCardData[];
+}
+
+export interface Props {
+  data: linkBoxData;
+}
+
+const { data } = Astro.props;
+const { cards } = data;
+---
+
+<section class="w-full flex justify-center">
+  <div class="max-w-medium-big flex flex-col gap-5 md:flex-row">
+    {cards && cards.map((card) => <LinkCard data={card} />)}
+  </div>
+</section>

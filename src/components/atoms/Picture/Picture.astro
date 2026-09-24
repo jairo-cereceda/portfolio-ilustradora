@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+
+export interface pictureData {
+  slug: string;
+  imgSrc: string;
+  imgAlt: string;
+  title: string;
+  text: string;
+}
+
+export interface Props {
+  data: pictureData;
+}
+
+const { data } = Astro.props;
+const { imgSrc, imgAlt, title, text, slug } = data;
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/**/*.{jpeg,jpg,png,gif,webp}'
+);
+const imagePath = `/src/assets/${imgSrc}`;
+
+if (!allImages[imagePath]) {
+  throw new Error(
+    `"${imagePath}" no existe en "src/assets/". Asegúrate de que el nombre en tu JS coincide con el archivo.`
+  );
+}
+
+const imageModule = await allImages[imagePath]();
+const metadata = imageModule.default;
+---
+
+<a
+  class="w-full opacity-0 block overflow-hidden group cursor-pointer transition-all duration-2000 md:pointer-events-auto md:duration-150 md:hover:scale-95 hover:rounded-2xl hover:shadow-primary-light"
+  data-thumb
+  href={`/portfolio/${slug}`}
+  data-src={metadata.src}
+  data-title={title}
+  data-desc={text}
+  data-alt={imgAlt}
+  style={`aspect-ratio: ${metadata.width} / ${metadata.height};`}
+>
+  <Image
+    src={allImages[imagePath]()}
+    width={metadata.width}
+    height={metadata.height}
+    alt={imgAlt}
+    class="w-full transition-all duration-150 md:hover:rounded-2xl"
+  />
+</a>

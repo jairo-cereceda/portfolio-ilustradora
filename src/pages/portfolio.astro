@@ -1,0 +1,56 @@
+---
+import type { headingData } from '@components/atoms/Heading/Heading.astro';
+import Heading from '@components/atoms/Heading/Heading.astro';
+import BeltLayout from '@layouts/BeltLayout.astro';
+import MainLayout from '@layouts/MainLayout.astro';
+import { commercialWorkList } from '../data/portfolio/commercial-work';
+import { originalCharactersList } from '../data/portfolio/original-characters';
+import { dynamicPosesList } from '../data/portfolio/dynamic-poses';
+import { experimentalColorList } from '../data/portfolio/experimental-color';
+import { fanartsList } from '../data/portfolio/fanarts';
+import { sketchProcessList } from '../data/portfolio/sketch-process';
+import PictureList from '@components/organisms/PictureList/PictureList.astro';
+import ContactBubble from '@components/atoms/ContactBubble/ContactBubble.astro';
+
+const mainHeading = {
+  heading: 'Portfolio',
+  type: 'elegant',
+  level: 'h1',
+} as headingData;
+---
+
+<MainLayout pageTitle="Ilustradora | Portfolio">
+  <BeltLayout topSpace="bigger">
+    <Heading data={mainHeading} />
+  </BeltLayout>
+  <div class="flex flex-col gap-20">
+    <PictureList
+      data={originalCharactersList}
+      type="mansory"
+      title="Personajes Originales"
+    />
+    <PictureList data={fanartsList} type="mansory" title="Fanarts" />
+    <PictureList
+      data={sketchProcessList}
+      type="mansory"
+      title="Bocetos y procesos"
+    />
+    <PictureList
+      data={dynamicPosesList}
+      type="mansory"
+      title="Poses y perspectivas"
+    />
+    <PictureList
+      data={experimentalColorList}
+      type="mansory"
+      title="Estudios de color"
+    />
+    <PictureList
+      data={commercialWorkList}
+      type="mansory"
+      title="Comisiones y trabajos"
+    />
+  </div>
+
+  <ContactBubble />
+</MainLayout>

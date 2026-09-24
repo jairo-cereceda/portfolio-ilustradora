@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+
+export interface heroData {
+  imgSrc: string;
+}
+
+export interface Props {
+  data: heroData;
+}
+
+const { data } = Astro.props;
+const { imgSrc } = data;
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/**/*.{jpeg,jpg,png,gif,webp,PNG}'
+);
+const imagePath = `/src/assets/imgs/${imgSrc}`;
+
+if (!allImages[imagePath]) {
+  throw new Error(`La imagen "${imagePath}" no existe.`);
+}
+---
+
+<div class="relative" id="hero">
+  <div
+    class="overflow-hidden relative bg-darkblue
+  before:content-['']
+    before:bg-[url('/img/noise.webp')]
+    before:absolute
+    before:inset-0
+    before:opacity-[0.03]
+    before:pointer-events-none
+    before:z-10 before:rounded-3xl
+    lg:grid lg:grid-cols-2 lg:items-center"
+  >
+    <div
+      class="h-medium-big min-h-125 pb-30 w-full p-3 flex flex-col gap-10 justify-center text-white lg:translate-x-[50%] opacity-0 delay-1000 translate-x-[-10%] transition-all duration-1000"
+      id="hero-text"
+    >
+      <div>
+        <h1
+          class="text-6xl font-semibold uppercase font-secondary sm:text-8xl md:text-9xl"
+        >
+          Nombre
+        </h1>
+        <p class="text-2xl font-semibold uppercase sm:text-4xl md:text-5xl">
+          Ilustradora
+        </p>
+      </div>
+      <p
+        class="max-w-small italic font-bold sm:max-w-none sm:text-lg md:text-xl"
+      >
+        Ilustraciones con mi estilo
+      </p>
+    </div>
+
+    <Image
+      src={allImages[imagePath]()}
+      id="hero-img"
+      width={1308}
+      height={3447}
+      loading="eager"
+      fetchpriority="high"
+      alt="Ilustración"
+      class="absolute top-[20%] right-0 w-small md:w-medium-small translate-x-full opacity-0 transition-all duration-1000
+             lg:left-[60%] lg:right-auto lg:max-w-3xl
+             h-auto aspect-1308/3447"
+    />
+  </div>
+
+  <div
+    class="pointer-events-none absolute bottom-0 left-0 right-0 -mb-px h-40 bg-linear-to-t from-white to-transparent"
+  >
+  </div>
+  <div id="hero-sentinel" class="h-px w-full absolute bottom-[15%]"></div>
+</div>
+
+<script>
+  const heroReveal = () => {
+    const heroText = document.getElementById('hero-text');
+    const heroImg = document.getElementById('hero-img');
+
+    heroImg?.classList.remove('opacity-0', 'translate-x-full');
+    heroText?.classList.remove('opacity-0', 'translate-x-[-10%]');
+  };
+
+  document.addEventListener('DOMContentLoaded', heroReveal);
+</script>

@@ -1,0 +1,54 @@
+---
+import FooterItem from '@components/atoms/FooterItem/FooterItem.astro';
+
+const footerItems = [
+  {
+    url: '#',
+    label: 'Visitar mi Instagram',
+    icon: 'instagram',
+  },
+  {
+    url: '#',
+    label: 'Visitar mi twitter',
+    icon: 'twitter',
+  },
+  {
+    url: '#',
+    label: 'Visitar mi TikTok',
+    icon: 'tiktok',
+  },
+  {
+    url: '#',
+    label: 'Visitar mi YouTube',
+    icon: 'youtube',
+  },
+  {
+    url: '#',
+    label: 'Visitar mi Twitch',
+    icon: 'twitch',
+  },
+  {
+    url: '#',
+    label: 'Visitar mi Discord',
+    icon: 'discord',
+  },
+];
+---
+
+<footer
+  class="flex flex-col text-darkblue justify-center items-center gap-10 p-15"
+>
+  <nav>
+    <ul class="flex gap-4 items-center">
+      {footerItems && footerItems.map((item) => <FooterItem data={item} />)}
+    </ul>
+  </nav>
+
+  <div class="flex gap-4 text-gray-600 text-xs leading-tight">
+    <a href="/privacy">Política de Privacidad</a>
+    <a href="/cookies">Política de Cookies</a>
+    <a href="/legal-notice">Aviso Legal</a>
+  </div>
+
+  <p>© 2026</p>
+</footer>

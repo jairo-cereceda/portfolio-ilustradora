@@ -1,0 +1,22 @@
+---
+import LinkBanner from '@components/molecules/LinkBanner/LinkBanner.astro';
+
+const shopBtn = {
+  text: '¡Llévate un print!',
+  url: '#',
+  icon: 'tip',
+};
+
+const tipBtn = {
+  text: '¡Apoya mi proyecto!',
+  url: '#',
+  icon: 'tip',
+};
+---
+
+<div
+  class="grid grid-cols-1 md:grid-cols-[3fr_2fr] w-full my-0 md:mx-auto sm:max-w-[70%] lg:max-w-[50%] mx-5 gap-2"
+>
+  <LinkBanner data={shopBtn} />
+  <LinkBanner data={tipBtn} />
+</div>

@@ -1,0 +1,32 @@
+---
+import type { headingData } from '@components/atoms/Heading/Heading.astro';
+import Heading from '@components/atoms/Heading/Heading.astro';
+import BeltLayout from '@layouts/BeltLayout.astro';
+import MainLayout from '@layouts/MainLayout.astro';
+import { isPromotioning, promotionData } from '../data/work-with-me/promotion';
+import Contact from '@components/organisms/Contact/Contact.astro';
+import LinkBannerBlock from '@components/organisms/LinkBannerBlock/LinkBannerBlock.astro';
+import PopUp from '@components/atoms/PopUp/PopUp.astro';
+import PromotionCard from '@components/molecules/PromotionCard/PromotionCard.astro';
+
+const mainHeading = {
+  heading: 'Encargos',
+  type: 'elegant',
+  level: 'h1',
+} as headingData;
+---
+
+<MainLayout pageTitle="Ilustradora | Contacto">
+  <BeltLayout topSpace="big">
+    <Heading data={mainHeading} />
+    <Contact />
+    <LinkBannerBlock />
+    {
+      isPromotioning && (
+        <PopUp autoOpen>
+          <PromotionCard data={promotionData} />
+        </PopUp>
+      )
+    }
+  </BeltLayout>
+</MainLayout>

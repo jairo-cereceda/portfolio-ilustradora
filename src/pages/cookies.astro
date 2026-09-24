@@ -1,0 +1,84 @@
+---
+import BeltLayout from '@layouts/BeltLayout.astro';
+import MainLayout from '@layouts/MainLayout.astro';
+---
+
+<MainLayout pageTitle="Ilustradora | Política de cookies">
+  <BeltLayout topSpace="big">
+    <div class="m-5 shadow-main flex flex-col gap-6 md:max-w-big mx-auto">
+      <h1 class="text-center text-xl font-semibold uppercase">
+        Política de Cookies y Almacenamiento Local
+      </h1>
+      <section>
+        <h2 class="font-bold">
+          1. ¿Qué son las cookies y el almacenamiento local?
+        </h2>
+        <p>
+          Este sitio web utiliza tecnologías de almacenamiento en el navegador
+          del usuario para mejorar la experiencia de navegación. Aunque
+          comúnmente se les llama "cookies", también incluimos otras tecnologías
+          similares como el localStorage. Estas herramientas permiten guardar
+          pequeñas cantidades de información en tu dispositivo.
+        </p>
+      </section>
+      <section>
+        <h2 class="font-bold">2. ¿Qué tecnologías utilizamos y para qué?</h2>
+        <p>
+          En esta web no utilizamos cookies de seguimiento, publicidad ni
+          análisis (como Google Analytics). Solo utilizamos elementos técnicos
+          necesarios para el correcto funcionamiento del sitio:
+        </p>
+        <ul class="list-disc p-6 pb-0">
+          <li>
+            <b>Nombres de las Variables (ambas con misma utilidad):</b>
+            <ul class="list-[square] pl-6 pb-0">
+              <li>popup_seen_/</li>
+              <li>popup_seen_/work-with-me</li>
+            </ul>
+          </li>
+          <li><b>Tipo:</b> Almacenamiento local (localStorage).</li>
+          <li>
+            <b>Finalidad:</b> Técnica y de personalización. Se utiliza exclusivamente
+            para recordar si el usuario ya ha visto o cerrado el aviso publicitario/informativo
+            (popup) y evitar que aparezca de nuevo cada vez que navegas por el sitio.
+          </li>
+          <li>
+            <b>Duración:</b> 24 horas.
+          </li>
+          <li>
+            <b>Exención de consentimiento:</b> Este elemento está exento de la obligación
+            de consentimiento previo según la normativa vigente (LSSI), ya que se
+            considera necesario para una funcionalidad solicitada por el usuario (la
+            personalización de su experiencia de navegación).
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="font-bold">
+          3. Cómo gestionar o eliminar estas tecnologías
+        </h2>
+        <p>
+          Como usuario, tienes el control total sobre los datos guardados en tu
+          equipo. Puedes borrarlos o bloquearlos configurando tu navegador:
+        </p>
+        <ul class="list-disc p-6 pb-0">
+          <li>
+            <b>Chrome:</b> Configuración → Privacidad y seguridad → Cookies y otros
+            datos de sitios.
+          </li>
+          <li>
+            <b>Firefox:</b> Ajustes → Privacidad y seguridad → Cookies y datos del
+            sitio.
+          </li>
+          <li>
+            <b>Safari:</b> Preferencias → Privacidad → Gestionar datos del sitio web.
+          </li>
+        </ul>
+        <p class="mt-5">
+          Si decides borrar el almacenamiento local, lo único que ocurrirá es
+          que el aviso (popup) volverá a aparecer cada vez que nos visites.
+        </p>
+      </section>
+    </div>
+  </BeltLayout>
+</MainLayout>

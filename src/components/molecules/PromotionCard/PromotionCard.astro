@@ -1,0 +1,78 @@
+---
+import PopupCloseBtn from '@components/atoms/PopupCloseBtn/PopupCloseBtn.astro';
+import { Image } from 'astro:assets';
+
+export interface headerItemData {
+  title: string;
+  imgSrc: string;
+  maxSlots: number;
+  currentSlots: number;
+  text: string[];
+  price?: string;
+}
+
+export interface Props {
+  data: headerItemData;
+}
+
+const { data } = Astro.props;
+const { title, maxSlots, currentSlots, imgSrc, price, text } = data;
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/**/*.{jpeg,jpg,png,gif,webp}'
+);
+const imagePath = `/src/assets/${imgSrc}`;
+
+if (!allImages[imagePath]) {
+  throw new Error(
+    `"${imagePath}" no existe en "src/assets/". Asegúrate de que el nombre en tu JS coincide con el archivo.`
+  );
+}
+---
+
+<div
+  class="bg-white shadow-primary text-black p-2 relative gap-2 max-w-[90vw] 2xl:max-w-[70vw] h-[90vh] items-center flex flex-col justify-between md:flex-row md:items-stretch"
+  data-popup-element
+>
+  <p class="font-secondary font-semibold md:hidden">
+    Plazas: <span class="font-normal">{currentSlots}/{maxSlots}</span>
+  </p>
+  <div class="flex items-center justify-center md:flex-1 min-w-0 min-h-0">
+    <Image
+      src={allImages[imagePath]()}
+      width={600}
+      height={600}
+      alt=""
+      class="block object-contain w-full h-full min-h-0"
+    />
+  </div>
+  <div
+    class="flex flex-col min-w-0 min-h-0 p-4 max-h-[40vh] md:max-h-none md:max-w-medium-small xl:max-w-medium justify-between"
+  >
+    <PopupCloseBtn />
+
+    <div class="flex flex-col overflow-hidden pr-2">
+      <div
+        class="flex flex-col gap-2 lg:flex-row lg:justify-between lg:items-end lg:pr-4"
+      >
+        <h2
+          id="popup-title"
+          class="text-lg font-semibold wrap-break-word md:text-xl"
+        >
+          {title}
+        </h2>
+        <p
+          class="font-secondary whitespace-nowrap font-semibold hidden md:block"
+        >
+          Plazas: <span class="font-normal">{currentSlots}/{maxSlots}</span>
+        </p>
+      </div>
+      <div
+        class="flex flex-col gap-2 min-h-0 overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-400 scrollbar-track-transparent"
+      >
+        {text && text.map((block) => <p>{block}</p>)}
+      </div>
+    </div>
+    {price && <p class="text-3xl text-end">{price}€</p>}
+  </div>
+</div>

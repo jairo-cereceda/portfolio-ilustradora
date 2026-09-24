@@ -1,0 +1,111 @@
+---
+import HeaderItemList from '@components/molecules/HeaderItemList/HeaderItemList.astro';
+import { Icon } from 'astro-icon/components';
+
+export interface headerItemData {
+  url: string;
+  text: string;
+  subUrls?: { items: headerItemData[]; id: string };
+}
+
+export interface Props {
+  data: headerItemData;
+}
+
+const { data } = Astro.props;
+const { text, url, subUrls } = data;
+
+const submenuAttrs = subUrls ? { 'data-submenu': subUrls.id } : {};
+---
+
+<li {...submenuAttrs} class="relative">
+  <div class="flex items-center gap-2">
+    <a href={url} class="hover:text-brand" tabindex="-1" data-menu-link>
+      {text}
+    </a>
+
+    {
+      subUrls && (
+        <button
+          data-submenu-btn={subUrls.id}
+          aria-label={`Desplegar submenú de ${text}`}
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls={subUrls.id}
+          tabindex="-1"
+          class="lg:hidden cursor-pointer"
+        >
+          <Icon
+            name="triangle"
+            class="text-black rotate-180 transition-transform ease duration-200"
+            size={12}
+          />
+        </button>
+      )
+    }
+  </div>
+
+  {
+    subUrls && (
+      <div class="pl-4">
+        <HeaderItemList
+          data={{ items: subUrls.items, submenuId: subUrls.id }}
+        />
+      </div>
+    )
+  }
+</li>
+
+<script>
+  import { setElementsTabs } from '@utils/controlTabs';
+
+  document
+    .querySelectorAll<HTMLElement>('[data-submenu]')
+    .forEach((dropdown) => {
+      const btn = dropdown.querySelector('[data-submenu-btn]');
+      const btnIcon = btn?.querySelector('svg');
+      const container = dropdown.querySelector('[data-submenu-parent]');
+      const containerAnchors = container?.querySelectorAll('a');
+
+      if (container && containerAnchors && btn) {
+        const openDropdown = () => {
+          container.classList.add('submenu-open');
+          container.classList.remove('submenu-close');
+          setElementsTabs(true, containerAnchors);
+          btn.setAttribute('aria-expanded', 'true');
+          btnIcon?.classList.remove('rotate-180');
+        };
+
+        const closeDropdown = () => {
+          container.classList.remove('submenu-open');
+          container.classList.add('submenu-close');
+          setElementsTabs(false, containerAnchors);
+          btn.setAttribute('aria-expanded', 'false');
+          btnIcon?.classList.add('rotate-180');
+        };
+
+        const dropdownAction = () => {
+          if (container.classList.contains('submenu-close')) {
+            openDropdown();
+          } else {
+            closeDropdown();
+          }
+        };
+
+        btn.addEventListener('click', dropdownAction);
+
+        if (window.innerWidth >= 1024) {
+          dropdown.addEventListener('mouseenter', openDropdown);
+          dropdown.addEventListener('mouseleave', closeDropdown);
+
+          dropdown.addEventListener('focusin', openDropdown);
+
+          dropdown.addEventListener('focusout', (e: FocusEvent) => {
+            if (!dropdown.contains(e.relatedTarget as Node)) {
+              closeDropdown();
+            }
+          });
+        }
+      }
+    });
+</script>

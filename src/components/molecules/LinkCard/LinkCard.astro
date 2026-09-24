@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+
+export interface linkCardData {
+  firstImgSrc: string;
+  secondImgSrc?: string;
+  title: string;
+  url: string;
+}
+
+export interface Props {
+  data: linkCardData;
+}
+
+const { data } = Astro.props;
+const { url, firstImgSrc, secondImgSrc, title } = data;
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/**/*.{jpeg,jpg,png,gif,webp,JPG,PNG}'
+);
+
+const firstImagePath = `/src/assets/${firstImgSrc}`;
+if (!allImages[firstImagePath]) {
+  throw new Error(
+    `La imagen principal "${firstImagePath}" no existe en src/assets/`
+  );
+}
+const firstImage = allImages[firstImagePath]();
+
+let secondImage = null;
+if (secondImgSrc) {
+  const secondImagePath = `/src/assets/${secondImgSrc}`;
+  if (allImages[secondImagePath]) {
+    secondImage = allImages[secondImagePath]();
+  } else {
+    console.warn(`Aviso: La segunda imagen "${secondImagePath}" no existe.`);
+  }
+}
+---
+
+<a href={url} class="relative w-full rounded-2xl overflow-hidden">
+  <div class="relative w-full overflow-hidden">
+    {
+      secondImage && (
+        <Image
+          src={secondImage}
+          width={600}
+          height={600}
+          loading="lazy"
+          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 hover:opacity-0 aspect-banner md:aspect-flag"
+          alt=""
+        />
+      )
+    }
+    <Image
+      src={firstImage}
+      loading="lazy"
+      width={600}
+      height={600}
+      class="w-full object-cover aspect-banner md:aspect-flag"
+      alt=""
+    />
+  </div>
+
+  <h2
+    class="absolute bottom-2 left-2 z-5 text-white font-bold rounded-2xl px-3 py-1 overflow-hidden"
+  >
+    <span class="relative z-5">{title}</span>
+
+    <span
+      class="absolute inset-0 backdrop-blur rounded-2xl
+      before:content-['']
+         before:bg-[url('/img/noise.webp')]
+         before:absolute
+         before:inset-0
+         before:opacity-[0.05]
+         before:pointer-events-none
+         before:z-5 before:rounded-3xl"
+    ></span>
+  </h2>
+</a>

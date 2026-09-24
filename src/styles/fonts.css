@@ -1,0 +1,101 @@
+/*M PLUS U*/
+@font-face {
+  font-family: "M Plus U";
+  src:
+    url("/fonts/m-plus-u/MPLUSU-Regular.woff2") format("woff2"),
+    url("/fonts/m-plus-u/MPLUSU-Regular.woff") format("woff"),
+    url("/fonts/m-plus-u/MPLUSU-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "M Plus U";
+  src:
+    url("/fonts/m-plus-u/MPLUSU-Light.woff2") format("woff2"),
+    url("/fonts/m-plus-u/MPLUSU-Light.woff") format("woff"),
+    url("/fonts/m-plus-u/MPLUSU-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "M Plus U";
+  src:
+    url("/fonts/m-plus-u/MPLUSU-SemiBold.woff2") format("woff2"),
+    url("/fonts/m-plus-u/MPLUSU-SemiBold.woff") format("woff"),
+    url("/fonts/m-plus-u/MPLUSU-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "M Plus U";
+  src:
+    url("/fonts/m-plus-u/MPLUSU-Bold.woff2") format("woff2"),
+    url("/fonts/m-plus-u/MPLUSU-Bold.woff") format("woff"),
+    url("/fonts/m-plus-u/MPLUSU-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*Finlandica Headline*/
+@font-face {
+  font-family: "Finlandica Headline";
+  src:
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Regular.woff2")
+      format("woff2"),
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Regular.woff")
+      format("woff"),
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Regular.ttf")
+      format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Finlandica Headline";
+  src:
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Light.woff2")
+      format("woff2"),
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Light.woff")
+      format("woff"),
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Light.ttf")
+      format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Finlandica Headline";
+  src:
+    url("/fonts/finlandica-headline/FinlandicaHeadline-SemiBold.woff2")
+      format("woff2"),
+    url("/fonts/finlandica-headline/FinlandicaHeadline-SemiBold.woff")
+      format("woff"),
+    url("/fonts/finlandica-headline/FinlandicaHeadline-SemiBold.ttf")
+      format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Finlandica Headline";
+  src:
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Bold.woff2")
+      format("woff2"),
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Bold.woff")
+      format("woff"),
+    url("/fonts/finlandica-headline/FinlandicaHeadline-Bold.ttf")
+      format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,56 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import PictureList from '@components/organisms/PictureList/PictureList.astro';
+import { pictureList } from '../data/home';
+import LinkBox from '@components/organisms/LinkBox/LinkBox.astro';
+import BeltLayout from '@layouts/BeltLayout.astro';
+import Hero from '@components/molecules/Hero/Hero.astro';
+import PopUp from '@components/atoms/PopUp/PopUp.astro';
+import PromotionCard from '@components/molecules/PromotionCard/PromotionCard.astro';
+import { isPromotioning, promotionData } from '../data/work-with-me/promotion';
+
+const hero = {
+  imgSrc: 'hero-img.png',
+};
+
+const linkBox = {
+  cards: [
+    {
+      url: '/portfolio',
+      firstImgSrc: 'imgs/link-box/mock-1.1.jpg',
+      secondImgSrc: 'imgs/link-box/mock-1.jpg',
+      title: 'Portfolio',
+    },
+    {
+      url: '/about-me',
+      firstImgSrc: 'imgs/link-box/mock-2.1.png',
+      secondImgSrc: 'imgs/link-box/mock-2.jpg',
+      title: 'Sobre Mí',
+    },
+    {
+      url: '/work-with-me',
+      firstImgSrc: 'imgs/link-box/mock-3.1.png',
+      secondImgSrc: 'imgs/link-box/mock-3.jpg',
+      title: 'Encargos',
+    },
+  ],
+};
+---
+
+<MainLayout pageTitle="Ilustradora | Ilustradora estilo Anime y Videojuegos">
+  <Hero data={hero} />
+
+  <PictureList data={pictureList} type="sm-mansory" />
+
+  <BeltLayout>
+    <LinkBox data={linkBox} />
+  </BeltLayout>
+
+  {
+    isPromotioning && (
+      <PopUp autoOpen>
+        <PromotionCard data={promotionData} />
+      </PopUp>
+    )
+  }
+</MainLayout>

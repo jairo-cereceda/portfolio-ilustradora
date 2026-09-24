@@ -1,0 +1,91 @@
+export const pictureList = {
+  id: 'home',
+
+  pictures: [
+    {
+      slug: 'gaviota-en-el-muelle',
+      imgSrc: 'imgs/portfolio/fanarts/mock-1.jpg',
+      imgAlt: 'Ilustración de una gaviota en un muelle',
+      title: 'Gaviota en el muelle',
+      text: 'Una escena costera tranquila protagonizada por una gaviota sobre un muelle. Una ilustración que captura la calma y la esencia de un momento junto al mar.',
+    },
+    {
+      slug: 'gato-en-la-luna',
+      imgSrc: 'imgs/portfolio/dynamic-poses/mock-2.png',
+      imgAlt: 'Ilustración de un gato sentado sobre una luna',
+      title: 'Gato en la luna',
+      text: 'Una composición onírica protagonizada por un gato sentado sobre la luna. Una imagen que combina ternura, misterio y un toque de fantasía.',
+    },
+    {
+      slug: 'mujer-en-taza-de-cafe',
+      imgSrc: 'imgs/portfolio/original-characters/mock-1.png',
+      imgAlt: 'Ilustración de una mujer dentro de una taza de café',
+      title: 'Un café diferente',
+      text: 'Una escena fantástica en la que una mujer aparece dentro de una taza de café. Una propuesta imaginativa que mezcla lo cotidiano con un toque de humor.',
+    },
+    {
+      slug: 'montanas-y-lago',
+      imgSrc: 'imgs/portfolio/experimental-color/mock-4.jpg',
+      imgAlt: 'Ilustración de montañas junto a un lago',
+      title: 'Montañas y lago',
+      text: 'Una reinterpretación experimental de un paisaje natural protagonizado por montañas y un lago. El color y las formas crean una composición equilibrada y expresiva.',
+    },
+    {
+      slug: 'jarron-de-flores',
+      imgSrc: 'imgs/portfolio/commercial-work/mock-4.jpg',
+      imgAlt: 'Ilustración de un jarrón con flores',
+      title: 'Jarrón de flores',
+      text: 'Una ilustración decorativa protagonizada por un jarrón lleno de flores. Las formas orgánicas crean una composición cálida, delicada y atemporal.',
+    },
+    {
+      slug: 'pueblo-pesquero',
+      imgSrc: 'imgs/portfolio/sketch-process/mock-2.png',
+      imgAlt: 'Ilustración de un pueblo pesquero',
+      title: 'Pueblo pesquero',
+      text: 'Una escena costera protagonizada por un pequeño pueblo pesquero. La composición muestra la construcción de un paisaje mediante formas sencillas y equilibradas.',
+    },
+    {
+      slug: 'nina-con-gato',
+      imgSrc: 'imgs/portfolio/fanarts/mock-3.jpg',
+      imgAlt: 'Ilustración de una niña sentada junto a un gato',
+      title: 'Una tarde con gato',
+      text: 'Una escena íntima y cercana en la que una niña comparte un momento tranquilo junto a su gato. Una ilustración que transmite ternura, calma y compañía.',
+    },
+    {
+      slug: 'mujer-con-guitarra',
+      imgSrc: 'imgs/portfolio/original-characters/mock-4.png',
+      imgAlt:
+        'Ilustración de una mujer con una guitarra contemplando un cuadro',
+      title: 'Frente al cuadro',
+      text: 'Una escena en la que una mujer con su guitarra contempla una obra de arte. Una composición que transmite creatividad, calma y contemplación.',
+    },
+    {
+      slug: 'gato-mirando-la-luna',
+      imgSrc: 'imgs/portfolio/dynamic-poses/mock-3.png',
+      imgAlt: 'Ilustración de un gato sentado en una ventana mirando la luna',
+      title: 'Mirando la luna',
+      text: 'Un gato contempla la luna desde una ventana en una escena tranquila e íntima. Una ilustración que transmite silencio y contemplación.',
+    },
+    {
+      slug: 'montanas-blancas',
+      imgSrc: 'imgs/portfolio/sketch-process/mock-1.png',
+      imgAlt: 'Ilustración de unas montañas blancas',
+      title: 'Montañas blancas',
+      text: 'Una composición de paisaje centrada en unas montañas blancas. Las formas sencillas y limpias permiten apreciar la construcción de la escena.',
+    },
+    {
+      slug: 'edificio',
+      imgSrc: 'imgs/portfolio/experimental-color/mock-1.png',
+      imgAlt: 'Ilustración de un edificio',
+      title: 'Arquitectura y color',
+      text: 'Una exploración visual de la arquitectura a través del color y las formas. Una interpretación gráfica de un edificio cotidiano llena de personalidad.',
+    },
+    {
+      slug: 'mujer-taza-gato',
+      imgSrc: 'imgs/portfolio/dynamic-poses/mock-1.jpg',
+      imgAlt: 'Ilustración de una mujer con una taza y un gato sentado',
+      title: 'Una tarde con gato',
+      text: 'Una escena cotidiana y acogedora protagonizada por una mujer, una taza y la tranquila compañía de un gato. Una composición que transmite calma y sensación de hogar.',
+    },
+  ],
+};

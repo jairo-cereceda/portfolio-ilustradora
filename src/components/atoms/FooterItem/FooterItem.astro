@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface footerItemData {
+  url: string;
+  label: string;
+  icon: string;
+}
+
+export interface Props {
+  data: footerItemData;
+}
+
+const { data } = Astro.props;
+const { label, url, icon } = data;
+---
+
+<li>
+  <button data-open-fictional-popup class="cursor-pointer" aria-label={label}
+    ><Icon name={icon} size="32" /></button
+  >
+</li>

@@ -1,0 +1,155 @@
+---
+import type { headerItemData } from '../../atoms/HeaderItem/HeaderItem.astro';
+import { Icon } from 'astro-icon/components';
+import HeaderItemList from '../HeaderItemList/HeaderItemList.astro';
+
+export interface headerNavigationData {
+  items: headerItemData[];
+}
+
+export interface Props {
+  data: headerNavigationData;
+}
+
+const { data } = Astro.props;
+const { items } = data;
+---
+
+<div class="flex lg:block">
+  <button
+    type="button"
+    data-action="open-nav"
+    aria-controls="main-nav"
+    aria-expanded="false"
+    aria-label="Abrir menú de navegación"
+    class="cursor-pointer lg:hidden"
+  >
+    <Icon name="menu" size="32" />
+  </button>
+
+  <div
+    class="fixed top-0 z-70 right-0 bg-white h-full w-full translate-x-full transition-ease text-black lg:text-current duration-500 p-5 pr-12 md:w-[50%]
+       lg:bg-transparent lg:static lg:p-0 lg:w-full lg:translate-x-0"
+    id="main-nav"
+    aria-hidden="true"
+  >
+    <button
+      type="button"
+      data-action="close-nav"
+      aria-label="Cerrar menú de navegación"
+      tabindex="-1"
+      class="absolute top-5 right-5 cursor-pointer lg:hidden"
+    >
+      <Icon name="close" size="32" class="text-black" />
+    </button>
+
+    <nav aria-label="Navegación Principal">
+      <HeaderItemList data={{ items }} />
+    </nav>
+  </div>
+</div>
+
+<script>
+  import { focusTrap } from '@utils/focusTrap';
+  import { setElementsTabs } from '@utils/controlTabs';
+
+  const openBtn = document.querySelector(
+    '[data-action="open-nav"]'
+  ) as HTMLButtonElement;
+  const closeBtn = document.querySelector(
+    '[data-action="close-nav"]'
+  ) as HTMLButtonElement;
+  const mainNav = document.getElementById('main-nav');
+  const mainNavAnchors = mainNav?.querySelectorAll('a');
+  const submenus = mainNav?.querySelectorAll('[data-submenu-parent]');
+  const submenuBtns =
+    document.querySelectorAll<HTMLElement>('[data-submenu-btn]');
+
+  if (openBtn && closeBtn && mainNav && mainNavAnchors) {
+    if (window.innerWidth >= 1024) {
+      setElementsTabs(true, mainNavAnchors);
+      mainNav.setAttribute('aria-hidden', 'false');
+      if (submenuBtns) {
+        setElementsTabs(true, submenuBtns);
+        console.log(submenuBtns);
+      }
+      controlSubmenuTabs();
+    } else {
+      focusTrap(mainNav);
+    }
+
+    const openNav = () => {
+      if (window.innerWidth < 1024) {
+        mainNav.classList.remove('translate-x-full');
+        mainNav.setAttribute('aria-hidden', 'false');
+        openBtn.setAttribute('aria-expanded', 'true');
+        closeBtn.setAttribute('tabindex', '0');
+
+        closeBtn.focus();
+
+        setElementsTabs(true, mainNavAnchors);
+
+        if (submenuBtns) {
+          setElementsTabs(true, submenuBtns);
+        }
+
+        controlSubmenuTabs();
+      }
+    };
+
+    const closeNav = () => {
+      if (window.innerWidth < 1024) {
+        mainNav.classList.add('translate-x-full');
+        mainNav.setAttribute('aria-hidden', 'true');
+        openBtn.setAttribute('aria-expanded', 'false');
+        closeBtn.setAttribute('tabindex', '-1');
+
+        openBtn.focus();
+
+        if (submenuBtns) {
+          setElementsTabs(false, submenuBtns);
+        }
+
+        setElementsTabs(false, mainNavAnchors);
+      }
+    };
+
+    anchorsCloseMenu(closeNav);
+    openBtn.addEventListener('click', openNav);
+    closeBtn.addEventListener('click', closeNav);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeNav();
+    });
+
+    document.addEventListener('click', (e: MouseEvent) => {
+      const isMenuOpen = openBtn.getAttribute('aria-expanded') === 'true';
+      if (
+        e.target instanceof Node &&
+        !mainNav.contains(e.target) &&
+        !openBtn.contains(e.target) &&
+        isMenuOpen
+      )
+        closeNav();
+    });
+  }
+
+  function anchorsCloseMenu(auxFunction: () => void) {
+    mainNav?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+
+      const isAnchor = target.closest('a');
+
+      if (isAnchor) {
+        auxFunction();
+      }
+    });
+  }
+
+  function controlSubmenuTabs() {
+    submenus?.forEach((submenu) => {
+      const containerAnchors = submenu?.querySelectorAll('a');
+      setElementsTabs(false, containerAnchors);
+    });
+  }
+</script>

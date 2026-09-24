@@ -1,0 +1,13 @@
+---
+export interface Props {
+  topSpace?: 'big' | 'bigger';
+}
+
+const { topSpace } = Astro.props;
+---
+
+<div
+  class={`${topSpace === 'big' ? 'pt-14' : topSpace === 'bigger' ? 'pt-25' : ''} px-5 flex flex-col gap-10 items-center justify-center`}
+>
+  <slot />
+</div>

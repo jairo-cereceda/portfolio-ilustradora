@@ -1,0 +1,22 @@
+---
+export interface headerItemData {
+  text: string;
+  state: boolean;
+}
+
+export interface Props {
+  data: headerItemData;
+}
+
+const { data } = Astro.props;
+const { text, state } = data;
+---
+
+<div
+  class="rounded-3xl flex gap-2 items-center border py-2 px-4 mt-2 md:absolute md:top-2 md:right-2 md:mt-0"
+>
+  <span
+    class={`${state ? 'bg-green-600' : 'bg-red-600'} content-[''] block h-2 w-2 rounded-full `}
+  ></span>
+  <p>{text}</p>
+</div>

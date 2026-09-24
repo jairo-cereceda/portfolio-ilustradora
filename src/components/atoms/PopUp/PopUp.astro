@@ -1,0 +1,16 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { autoOpen = false } = Astro.props;
+---
+
+<dialog
+  class="p-5 m-0 w-full h-full max-w-none outline-none max-h-none bg-black/20 text-white open:flex flex-col overflow-hidden justify-between gap-5 open:animate-fade-in backdrop:bg-transparent"
+  aria-labelledby="popup-title"
+  data-popup
+  data-auto-open="true"
+>
+  <div class="flex justify-center items-center w-full h-full">
+    <slot />
+  </div>
+</dialog>

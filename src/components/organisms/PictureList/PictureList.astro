@@ -1,0 +1,56 @@
+---
+import Heading, {
+  type headingData,
+} from '@components/atoms/Heading/Heading.astro';
+import type { pictureData } from '@components/atoms/Picture/Picture.astro';
+import Picture from '@components/atoms/Picture/Picture.astro';
+
+export interface pictureListData {
+  pictures: pictureData[];
+  id: string;
+}
+
+export interface Props {
+  data: pictureListData;
+  type?: 'normal' | 'mansory' | 'sm-mansory';
+  title?: string;
+}
+
+const { data, type, title } = Astro.props;
+const { pictures, id } = data;
+
+const heading = {
+  heading: title,
+  type: 'diamond',
+  level: 'h2',
+} as headingData;
+---
+
+<section
+  id={id}
+  class="flex flex-col gap-10 scroll-mt-25 lg:items-center lg:gap-5"
+  data-picture-list-animation={type === 'sm-mansory' ? 'true' : ''}
+  data-testid="picture-list"
+>
+  {
+    title && (
+      <div class="px-2 lg:w-full lg:max-w-big">
+        <Heading data={heading} />
+      </div>
+    )
+  }
+  <div class="flex flex-col gap-4 lg:max-w-big">
+    <div
+      class={`${
+        type === 'mansory'
+          ? 'columns-2 gap-2 space-y-2 lg:columns-3'
+          : type === 'sm-mansory'
+            ? 'grid grid-cols-1 gap-2 sm:block sm:columns-2 sm:space-y-2 lg:columns-3'
+            : 'grid grid-cols-1 gap-2'
+      }
+      `}
+    >
+      {pictures && pictures.map((picture) => <Picture data={picture} />)}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,88 @@
+---
+import { commercialWorkList } from '@data/portfolio/commercial-work';
+import FirstLayout from '@layouts/FirstLayout.astro';
+import { originalCharactersList } from '@data/portfolio/original-characters';
+import { dynamicPosesList } from '@data/portfolio/dynamic-poses';
+import { experimentalColorList } from '@data/portfolio/experimental-color';
+import { fanartsList } from '@data/portfolio/fanarts';
+import { sketchProcessList } from '@data/portfolio/sketch-process';
+import '@styles/main.css';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const projects = [
+    ...commercialWorkList.pictures,
+    ...originalCharactersList.pictures,
+    ...dynamicPosesList.pictures,
+    ...experimentalColorList.pictures,
+    ...fanartsList.pictures,
+    ...sketchProcessList.pictures,
+  ];
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { imgSrc, imgAlt, title, text, slug } = Astro.props.project;
+
+const getMimeType = (url: string) => {
+  if (url.endsWith('.png')) return 'image/png';
+  if (url.endsWith('.webp')) return 'image/webp';
+  return 'image/jpeg';
+};
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/**/*.{jpeg,jpg,png,gif,webp}'
+);
+const imagePath = `/src/assets/${imgSrc}`;
+
+if (!allImages[imagePath]) {
+  throw new Error(
+    `"${imagePath}" no existe en "src/assets/". Asegúrate de que el nombre en tu JS coincide con el archivo.`
+  );
+}
+---
+
+<FirstLayout pageTitle={`Ilustradora | ${title}`} pageDescription={text}>
+  <dialog
+    class="p-0 m-0 w-full h-full max-w-none max-h-none bg-black text-white open:flex flex-col overflow-hidden justify-between gap-5
+    lg:flex-row lg:bg-black/80 z-100"
+    aria-labelledby="viewer-title"
+    aria-describedby="viewer-desc"
+    open
+  >
+    <a
+      href="/"
+      class="absolute top-1 left-1 px-2 bg-white text-black border border-darkblue font-bold font-secondary transition duration-300 hover:border-detail"
+      >Ilustradora | Ver más</a
+    >
+    <div
+      class="grow min-h-0 flex items-center justify-center mx-auto my-0 lg:grow-0"
+    >
+      <Image
+        class="w-full h-full object-contain mt-5 lg:mt-0"
+        width={600}
+        height={600}
+        src={allImages[imagePath]()}
+        alt={imgAlt}
+      />
+    </div>
+    <div
+      class="bg-primary relative p-5 pt-8 rounded-t-3xl shrink-0 flex flex-col max-h-[40vh] overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-400 scrollbar-track-transparent wrap-break-word
+        before:content-['']
+         before:bg-[url('/img/noise.webp')]
+         before:absolute
+         before:inset-0
+         before:opacity-[0.02]
+         before:pointer-events-none
+         before:z-10 before:rounded-3xl
+        lg:shrink lg:max-w-medium-small lg:max-h-none lg:h-full lg:rounded-t-none lg:rounded-l-3xl"
+    >
+      <div>
+        <h2 class="font-semibold text-xl" id="viewer-title">{title}</h2>
+        <p id="viewer-desc">{text}</p>
+      </div>
+    </div>
+  </dialog>
+</FirstLayout>

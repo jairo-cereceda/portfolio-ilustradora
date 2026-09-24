@@ -1,0 +1,146 @@
+---
+import HeaderBar from '@components/molecules/HeaderBar/HeaderBar.astro';
+import HeaderNavigation from '@components/molecules/HeaderNavigation/HeaderNavigation.astro';
+
+export interface headerData {
+  pathname: string;
+}
+
+export interface Props {
+  data: headerData;
+}
+
+const { data } = Astro.props;
+const { pathname } = data;
+
+const headerAnchors = {
+  items: [
+    {
+      text: 'Portfolio',
+      url: '/portfolio',
+      subUrls: {
+        items: [
+          {
+            text: 'Personajes Originales',
+            url: '/portfolio#original-characters',
+          },
+          { text: 'Fanarts', url: '/portfolio#fanarts' },
+          { text: 'Bocetos y procesos', url: '/portfolio#sketch-process' },
+          {
+            text: 'Poses y perspectivas',
+            url: '/portfolio#dynamic-poses',
+          },
+          { text: 'Estudios de color', url: '/portfolio#experimental-color' },
+          { text: 'Comisiones y trabajos', url: '/portfolio#commercial-work' },
+        ],
+        id: crypto.randomUUID(),
+      },
+    },
+    { text: 'Sobre mí', url: '/about-me' },
+    { text: 'Encargos', url: '/work-with-me' },
+  ],
+};
+
+const showPortfolioMenu = pathname.includes('/portfolio');
+---
+
+<header
+  id="header"
+  class={`${showPortfolioMenu ? 'p-3 pb-0' : 'p-3'} bg-white/0 flex flex-col fixed top-0 w-full z-50 transition-all duration-300`}
+>
+  <div class="flex items-center justify-between">
+    <a
+      href="/"
+      class="opacity-0 pointer-events-none transition-opacity duration-300 text-black font-semibold"
+      aria-hidden="true"
+      tabindex="-1"
+      id="header-root">Nombre</a
+    >
+
+    <HeaderNavigation data={headerAnchors} />
+  </div>
+  {
+    showPortfolioMenu && (
+      <HeaderBar data={{ items: headerAnchors.items[0].subUrls!.items }} />
+    )
+  }
+</header>
+
+<script>
+  const initHeader = () => {
+    const header = document.getElementById('header');
+    const headerRoot = document.getElementById('header-root');
+    const sentinel = document.getElementById('hero-sentinel');
+    const anchors = document.querySelectorAll('[data-menu-link]');
+    const submenuAnchors = document.querySelectorAll('[data-submenu-parent] a');
+
+    if (!header || !headerRoot) return;
+
+    const updateAnchorsColor = (isTransparent: boolean) => {
+      if (window.innerWidth < 1024) return;
+
+      anchors.forEach((a) => {
+        if (isTransparent) {
+          a.classList.remove('hover:text-brand');
+          a.classList.add('hover:text-detail');
+        } else {
+          a.classList.add('hover:text-brand');
+          a.classList.remove('hover:text-detail');
+        }
+      });
+
+      submenuAnchors.forEach((a) => {
+        a.classList.add('hover:text-brand');
+        a.classList.remove('hover:text-detail');
+      });
+    };
+
+    const setTransparent = () => {
+      header.classList.add('text-white', 'bg-white/0');
+      header.classList.remove('text-black', 'bg-white/100');
+      headerRoot.classList.add('opacity-0', 'pointer-events-none');
+      headerRoot.setAttribute('aria-hidden', 'true');
+      headerRoot.setAttribute('tabindex', '-1');
+      updateAnchorsColor(true);
+    };
+
+    const setWhite = () => {
+      header.classList.add('text-black', 'bg-white/100');
+      header.classList.remove('text-white', 'bg-white/0');
+      headerRoot.classList.remove('opacity-0', 'pointer-events-none');
+      headerRoot.setAttribute('aria-hidden', 'false');
+      headerRoot.setAttribute('tabindex', '0');
+      updateAnchorsColor(false);
+    };
+
+    if (!sentinel) {
+      headerRoot.classList.remove('transition-opacity', 'duration-300');
+      setWhite();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTransparent();
+        } else {
+          setWhite();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(sentinel);
+
+    const rect = sentinel.getBoundingClientRect();
+    if (rect.top < 0) {
+      setWhite();
+    } else {
+      setTransparent();
+    }
+  };
+  document.addEventListener('astro:page-load', initHeader);
+
+  // If View Transitions, remove this
+  initHeader();
+</script>

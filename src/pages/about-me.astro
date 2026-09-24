@@ -1,0 +1,33 @@
+---
+import type { headingData } from '@components/atoms/Heading/Heading.astro';
+import Heading from '@components/atoms/Heading/Heading.astro';
+import BeltLayout from '@layouts/BeltLayout.astro';
+import MainLayout from '@layouts/MainLayout.astro';
+
+import ContactBubble from '@components/atoms/ContactBubble/ContactBubble.astro';
+import AboutMeBlock from '@components/organisms/AboutMeBlock/AboutMeBlock.astro';
+import { aboutMeData } from '../data/about-me';
+
+const mainHeading = {
+  heading: 'Sobre mí',
+  type: 'elegant',
+  level: 'h1',
+} as headingData;
+---
+
+<MainLayout pageTitle="Ilustradora | Sobre mí">
+  <BeltLayout topSpace="big">
+    <Heading data={mainHeading} />
+
+    <div class="flex flex-col gap-20 items-center">
+      {
+        aboutMeData &&
+          aboutMeData.map((data, index) => (
+            <AboutMeBlock data={data} id={index} />
+          ))
+      }
+    </div>
+  </BeltLayout>
+
+  <ContactBubble />
+</MainLayout>

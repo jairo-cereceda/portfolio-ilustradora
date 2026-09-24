@@ -1,0 +1,60 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface headingData {
+  heading: string;
+  type: 'line' | 'elegant' | 'diamond';
+  level: 'h1' | 'h2' | 'h3';
+}
+
+export interface Props {
+  data: headingData;
+}
+
+const { data } = Astro.props;
+const { heading, type, level } = data;
+
+const elegantClass = {
+  class: 'uppercase text-center font-light font-primary text-3xl lg:text-5xl  ',
+};
+const lineClass = { class: 'text-lg whitespace-nowrap' };
+const diamondClass = {
+  class: 'text-lg font-bold whitespace-nowrap lg:text-2xl',
+};
+---
+
+{/****ELEGANT*****/}
+{
+  type === 'elegant' && (
+    <div class="mt-2 lg:my-10">
+      {level === 'h1' && <h1 {...elegantClass}>{heading}</h1>}
+      {level === 'h2' && <h2 {...elegantClass}>{heading}</h2>}
+      {level === 'h3' && <h3 {...elegantClass}>{heading}</h3>}
+    </div>
+  )
+}
+
+{/*****LINE*****/}
+{
+  type === 'line' && (
+    <div class="flex items-center gap-2">
+      {level === 'h1' && <h1 {...lineClass}>{heading}</h1>}
+      {level === 'h2' && <h2 {...lineClass}>{heading}</h2>}
+      {level === 'h3' && <h3 {...lineClass}>{heading}</h3>}
+      <span class="h-0.5 w-full bg-black/20 block" />
+    </div>
+  )
+}
+
+{/*****Diamond*****/}
+{
+  type === 'diamond' && (
+    <div class="flex items-center gap-2 uppercase justify-center lg:justify-start">
+      <Icon name="diamond" class="text-detail/30" />
+      {level === 'h1' && <h1 {...diamondClass}>{heading}</h1>}
+      {level === 'h2' && <h2 {...diamondClass}>{heading}</h2>}
+      {level === 'h3' && <h3 {...diamondClass}>{heading}</h3>}
+      <Icon name="diamond" class="text-red-detail/30" />
+    </div>
+  )
+}

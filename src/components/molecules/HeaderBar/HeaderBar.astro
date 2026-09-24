@@ -1,0 +1,34 @@
+---
+import HeaderItem, {
+  type headerItemData,
+} from '@components/atoms/HeaderItem/HeaderItem.astro';
+
+export interface headerBarData {
+  items: headerItemData[] | undefined;
+}
+
+export interface Props {
+  data: headerBarData;
+}
+
+const { data } = Astro.props;
+const { items } = data;
+---
+
+<nav
+  id="portfolio-navbar"
+  class="w-full whitespace-nowrap overflow-x-auto z-[-1] py-4 scrollbar-thin scrollbar-thumb-neutral-400 scrollbar-track-transparent"
+>
+  <ul class="flex gap-4 lg:justify-center">
+    {items && items.map((item) => <HeaderItem data={item} />)}
+  </ul>
+</nav>
+
+<script>
+  import { setElementsTabs } from '@utils/controlTabs';
+
+  const portfolioNavBarAnchors = document.querySelectorAll(
+    '#portfolio-navbar a'
+  ) as NodeListOf<HTMLElement>;
+  setElementsTabs(true, portfolioNavBarAnchors);
+</script>

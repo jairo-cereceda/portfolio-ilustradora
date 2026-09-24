@@ -1,0 +1,129 @@
+---
+import Heading, {
+  type headingData,
+} from '@components/atoms/Heading/Heading.astro';
+import { Image } from 'astro:assets';
+
+export interface aboutMeBlockData {
+  imgSrc: string;
+  text: string;
+  title?: string;
+}
+
+interface Props {
+  data: aboutMeBlockData;
+  id: number;
+}
+
+const { data, id } = Astro.props;
+const { imgSrc, text, title } = data;
+
+const heading = {
+  heading: title,
+  type: 'diamond',
+  level: 'h2',
+} as headingData;
+
+const isImageLeft = id % 2 === 0;
+const imgPosition = isImageLeft
+  ? 'sm:float-left sm:mr-5'
+  : 'sm:float-right sm:ml-5';
+
+const imgInitialTransform = isImageLeft ? '-translate-x-12' : 'translate-x-12';
+const textInitialTransform = isImageLeft ? 'translate-x-12' : '-translate-x-12';
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/**/*.{jpeg,jpg,png,gif,webp}'
+);
+const imagePath = `/src/assets/${imgSrc}`;
+
+if (!allImages[imagePath]) {
+  throw new Error(
+    `"${imagePath}" no existe en "src/assets/". Asegúrate de que el nombre en tu JS coincide con el archivo.`
+  );
+}
+---
+
+<section
+  class="lg:max-w-big flex flex-col gap-4 sm:block"
+  data-is-left={isImageLeft.toString()}
+  data-about-me
+>
+  <Image
+    src={allImages[imagePath]()}
+    width={600}
+    height={600}
+    alt=""
+    class=`${imgPosition} xl:${imgInitialTransform} order-2 aspect-square w-full rounded-2xl shadow-primary-light sm:max-w-medium-small lg:max-w-medium transition-all duration-700 ease-out will-change-transform`
+    data-about-me-img
+  />
+
+  {
+    title && (
+      <div
+        class={`order-1 xl:${textInitialTransform} transition-all duration-700 ease-out will-change-transform`}
+        data-about-me-title
+      >
+        <Heading data={heading} />
+      </div>
+    )
+  }
+  <p
+    class={`order-3 xl:${textInitialTransform} transition-all duration-700 ease-out will-change-transform`}
+    data-about-me-text
+  >
+    {text}
+  </p>
+</section>
+
+<script>
+  const setupScrollTrigger = () => {
+    if (window.innerWidth < 1280) return;
+
+    const sections = document.querySelectorAll('[data-about-me]');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -20% 0px',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const section = entry.target as HTMLElement;
+        const isLeft = section.dataset.isLeft === 'true';
+        const img = section.querySelector('[data-about-me-img]');
+        const texts = section.querySelectorAll('[data-about-me-move]');
+
+        const imgClass = isLeft ? '-translate-x-12' : 'translate-x-12';
+        const textClass = isLeft ? 'translate-x-12' : '-translate-x-12';
+
+        if (entry.isIntersecting) {
+          section.classList.remove('opacity-0', 'translate-y-8');
+          section.classList.add('opacity-100', 'translate-y-0');
+
+          img?.classList.remove(imgClass);
+          img?.classList.add('translate-x-0');
+
+          texts.forEach((t) => {
+            t.classList.remove(textClass);
+            t.classList.add('translate-x-0');
+          });
+        } else {
+          img?.classList.add(imgClass);
+          img?.classList.remove('translate-x-0');
+
+          texts.forEach((t) => {
+            t.classList.add(textClass);
+            t.classList.remove('translate-x-0');
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((section) => observer.observe(section));
+  };
+
+  setupScrollTrigger();
+  document.addEventListener('astro:after-swap', setupScrollTrigger);
+</script>

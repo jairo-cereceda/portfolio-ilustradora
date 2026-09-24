@@ -1,0 +1,53 @@
+@theme {
+  /*Fonts*/
+  --font-primary: 'M Plus U', sans-serif;
+  --font-secondary: 'Finlandica Headline', sans-serif;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /*Measures*/
+  --spacing-small: 10rem;
+  --spacing-medium-small: 20rem;
+  --spacing-medium: 40rem;
+  --spacing-medium-big: 45rem;
+  --spacing-big: 70rem;
+
+  /*Colors*/
+  --color-primary: #1a1a1f;
+  --color-secondary: #1b4dff;
+  --color-brand: #6b1f2b;
+  --color-detail: #00d4ff;
+  --color-red-detail: #ff0000;
+  --color-black: #0e0e10;
+  --color-white: #ededed;
+  --color-darkblue: #0a1b2e;
+
+  --color-black-light: #0e0e1070;
+  --color-detail-light: #00d4ff70;
+
+  /*Shadows*/
+  --shadow-primary: 0 0 2.5rem 0.16rem var(--color-primary);
+  --shadow-primary-light: 0 0 2.5rem 0.16rem var(--color-black-light);
+  --shadow-detail-light: 0 0 2.5rem 0.16rem var(--color-detail-light);
+  --shadow-white: 0 -4rem 4rem -2rem var(--color-white);
+
+  /*Aspects*/
+  --aspect-banner: 3/1;
+  --aspect-flag: 3/5;
+
+  /*Animations*/
+  --animate-fade-in: fade-in 0.25s ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
