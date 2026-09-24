@@ -78,7 +78,7 @@ Open `http://localhost:4321` in your browser to see the result.
 
 ## 🌐 Deployment (GitHub Pages)
 
-> This section will be filled when the page is deployed
+> This site is deployed and hosted on [Vercel](https://portfolio-ilustradora.vercel.app/).
 
 ## ✒️ Author
 

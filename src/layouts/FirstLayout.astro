@@ -9,7 +9,7 @@ export interface Props {
 
 const { pageTitle, pageDescription } = Astro.props;
 
-// const pathname = Astro.url.pathname;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -40,7 +40,7 @@ const { pageTitle, pageDescription } = Astro.props;
       content={pageDescription ||
         `Portfolio de Ilustradora, ilustraciones originales, procesos creativos y encargos personalizados.`}
     />
-    <!-- <link rel="canonical" href="https://www.lawebdelartista.com/pagina-actual"> -->
+    <link rel="canonical" href={canonicalUrl} />
 
     <meta
       property="og:title"
@@ -48,13 +48,13 @@ const { pageTitle, pageDescription } = Astro.props;
     />
     <meta
       property="og:description"
-      content="Explora el universo visual de Ilustradora. Ilustraciones originales, procesos creativos y encargos personalizados."
+      content="Explora mi universo visual. Ilustraciones originales, procesos creativos y encargos personalizados."
     />
-    <!-- <meta
+    <meta
       property="og:image"
-      content="https://www.lawebdelartista.com/images/obra-principal.jpg"
-    /> -->
-    <!-- <meta property="og:url" content="https://www.lawebdelartista.com" /> -->
+      content="https://portfolio-ilustradora.vercel.app/_astro/mock-4.DPkjPGmy_Z1w3fqT.webp"
+    />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
